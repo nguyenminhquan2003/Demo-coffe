@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Demo Web Coffe</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="js/angular.min.js"></script>
+    <style>
+        body{
+            background-color: #CCFFFF;
+        }
+    </style>
+</head>
+<body>
+<div class="container ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary text-white fixed-top " id="sideNav">
+        <a class="navbar-brand js-scroll-tringger" href="#page-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Thanh Toán</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div ng-app="myApp">
+        <div class="container" ng-controller="myCtrl">
+            <div class="row">
+                <div class="col-sm-8 offset-sm-2">
+                    <div class="card-header">
+                        The Bubble Coffe
+                    </div>
+                    <div class="card-body">
+                       <table class="table table-bordered">
+                           <tbody>
+                               <tr>
+                                   <td>STT</td>
+                                   <td>Mã Đồ Uống</td>
+                                   <td>Tên Đồ Uống</td>
+                                   <td>Số lượng</td>
+                                   <td>Giá Bán</td>
+                                   <td>Thành Tiền</td>
+                               </tr>
+                               <tr ng-repeat="item in list_item" ng-init="item.quantity = 1;">
+                                   <td><input ng-model="item.buy" type="checkbox" name="" id=""></td>
+                                   <td>0312</td>
+                                   <td>{{item.name}}</td>
+                                   <td><input type="number" ng-model="item.quantity" ng-disabled="!item.buy"></td>
+                                   <td>{{item.price|currency:'VND':0}}</td>
+                                   <td>{{item.price * item.quantity}}</td>
+                               </tr>
+                           </tbody>
+                       </table>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Tổng Tiền {{getAmount()|currency:'VND':0}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        var app = angular.module('myApp',[]);
+        app.controller('myCtrl',function ($scope) {
+            $scope.getAmount = function () {
+                var amount = 0;
+                for(var i = 0; i < $scope.list_item.length; i++){
+                    if($scope.list_item[i].buy){
+                        amount += $scope.list_item[i].price * $scope.list_item[i].quantity;
+                    }
+                }
+                return amount;
+            }
+            $scope.list_item = [
+                {
+                    name:'Ca phe den',
+                    price: 20000
+                },
+                {
+                    name:'Ca phe sua',
+                    price: 25000
+                },
+                {
+                    name:'Capuchino',
+                    price: 35000
+                },
+                {
+                    name:'latte',
+                    price: 30000
+                },
+                {
+                    name:'Sinh to dua hau',
+                    price: 55000
+                },
+                {
+                    name:'Sinh to dau tay',
+                    price: 55000
+                },
+                {
+                    name:'huong duong',
+                    price: 15000
+                },
+            ]
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
